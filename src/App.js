@@ -1,26 +1,32 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import firebase from 'firebase/app';
+import 'firebase/database';
+
+import Thread from './Thread.js';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    // Initialize Firebase
+   var config = {
+       apiKey: "AIzaSyDNhJo4snc5-wCP17yAPlouAVMieTEt40g",
+       authDomain: "react-forum-58613.firebaseapp.com",
+       databaseURL: "https://react-forum-58613.firebaseio.com",
+       projectId: "react-forum-58613",
+       storageBucket: "react-forum-58613.appspot.com",
+       messagingSenderId: "560066182181"
+     };
+
+
+     this.app = firebase.initializeApp(config);
+     this.database = this.app.database();
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Thread database = { this.database }/>
     );
   }
 }
