@@ -30,7 +30,6 @@ class PostEditor extends Component {
     this.props.addPost(this.state.newPostBody, this.state.newAuthor);
     this.setState({
       newPostBody: "",
-      newAuthor: "",
     });
   }
 
@@ -40,7 +39,7 @@ class PostEditor extends Component {
         <div className="panel-body">
           <input type="text" className="form-control" placeholder="Your Name" value={this.state.newAuthor} onChange={this.handleAuthorInput} />
           <textarea className="form-control" value={this.state.newPostBody} onChange={this.handleEditorInput} />
-          <button className="btn btn-success post-editor-button" onClick={this.createPost}>Post</button>
+          <button className="btn post-editor-button btn-submit" onClick={this.createPost}>Post</button>
         </div>
       </div>
     )

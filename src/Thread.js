@@ -1,25 +1,19 @@
+// Document Title: Thread.js
+// Author: Sarah Creasman
+// Last Updated: 11/12/18
+// Provides the Thread page for the ChatDoom app
+
 import React, { Component } from 'react';
 
+// IMPORTS COMPONENTS FROM APP
 import Post from './Post.js';
 import PostEditor from './PostEditor.js';
-
-// const config = {
-//     apiKey: "AIzaSyDNhJo4snc5-wCP17yAPlouAVMieTEt40g",
-//     authDomain: "react-forum-58613.firebaseapp.com",
-//     databaseURL: "https://react-forum-58613.firebaseio.com",
-//     projectId: "react-forum-58613",
-//     storageBucket: "react-forum-58613.appspot.com",
-//     messagingSenderId: "560066182181"
-//   };
-//
-//
-//   firebase.initializeApp(config);
-//   database = firebase.database();
 
 class Thread extends Component {
   constructor(props) {
     super(props);
 
+    // BINDS THE FUNCTIONS TO THE THIS KEYWORD
     this.databaseRef = this.props.database.ref().child("posts");
     this.addPost = this.addPost.bind(this);
     this.updateLocalState = this.updateLocalState.bind(this);
@@ -29,6 +23,7 @@ class Thread extends Component {
     }
   }
 
+  // LOADS THE DATABASE UPON STARTING THIS PAGE
   componentWillMount() {
     const {updateLocalState} = this;
     this.databaseRef.on("child_added", snapshot => {
@@ -38,6 +33,7 @@ class Thread extends Component {
     });
   }
 
+  // ADDS POST TO DATABASE AND CHATROOM APP
   addPost(postBody, postAuthor) {
     const postToSave = {postBody, postAuthor};
     this.databaseRef.push().set(postToSave);
@@ -52,17 +48,22 @@ class Thread extends Component {
     })
   }
 
+  // DISPLAYS THE CHAT ROOM PAGE ITSELF
   render() {
     return (
-      <div>
-        {
-          this.state.posts.map((postBody, idx) => {
-            return (
-              <Post key = {idx} postBody = {postBody} handleDelete = {this.handleDelete} />
-            )
-          })
-        }
-        <PostEditor addPost = {this.addPost} />
+      <div className="chat-body">
+        <div className="chat-posts">
+          {/* DISPLAYS POSTS WITH MOST RECENT MESSAGE ON TOP */}
+          {
+            this.state.posts.reverse().map((postBody, idx) => {
+              return (
+                <Post key = {idx} postBody = {postBody} handleDelete = {this.handleDelete} />
+              )
+            })
+          }
+        </div>
+          {/* DISPLAYS THE POST EDITOR SO USERS CAN POST */}
+          <PostEditor addPost = {this.addPost} />
       </div>
     );
   }

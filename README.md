@@ -1,3 +1,9 @@
+## ChatDoom
+
+ChatDoom is a simple chat application created for the September 2018 Cohort of Code Louisville. It features a simple chat application that updates in real time as well as a Welcome and About page.
+
+This project is written in JavaScript using the React framework. This project also uses Bootstrap and HTML/CSS for styling.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
